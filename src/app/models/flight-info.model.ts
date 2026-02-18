@@ -3,8 +3,8 @@
  * Used to capture and submit arrival details to the backend service
  * 
  * @remarks
- * The comments field is optional and should be omitted from the payload
- * if empty to reduce payload size and processing time on the server.
+ * The comments field is always included in the payload. An empty string
+ * is sent if no comment is provided to prevent API processing delays.
  */
 export interface FlightInfoPayload {
   /** Airline name or code (e.g., "Delta", "AA") */

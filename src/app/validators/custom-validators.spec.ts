@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup, FormControl } from '@angular/forms';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { CustomValidators } from './custom-validators';
 
@@ -8,8 +8,8 @@ describe('CustomValidators', () => {
 
     beforeEach(() => {
       formGroup = new FormGroup({
-        password: { value: '' } as any,
-        confirmPassword: { value: '', setErrors: vi.fn(), hasError: vi.fn() } as any
+        password: new FormControl(''),
+        confirmPassword: new FormControl('')
       });
     });
 
@@ -35,6 +35,7 @@ describe('CustomValidators', () => {
 
     it('should handle password controls correctly', () => {
       const confirmPasswordControl = formGroup.get('confirmPassword')!;
+      const setErrorsSpy = vi.spyOn(confirmPasswordControl, 'setErrors');
 
       formGroup.get('password')!.setValue('password123');
       confirmPasswordControl.setValue('different');
@@ -42,7 +43,7 @@ describe('CustomValidators', () => {
       const validator = CustomValidators.passwordsMatch();
       validator(formGroup as AbstractControl);
 
-      expect(confirmPasswordControl.setErrors).toHaveBeenCalled();
+      expect(setErrorsSpy).toHaveBeenCalled();
     });
 
     it('should return null when password controls are missing', () => {

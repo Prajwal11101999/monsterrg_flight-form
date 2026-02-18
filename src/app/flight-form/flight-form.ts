@@ -103,10 +103,8 @@ export class FlightFormComponent implements OnInit {
       arrivalTime: formValues.arrivalTime,
       flightNumber: formValues.flightNumber,
       numOfGuests: formValues.numOfGuests,
-      // Only include comments if it has a value
-      ...(formValues.comments && formValues.comments.trim() !== '' 
-        ? { comments: formValues.comments.trim() } 
-        : {})
+      // Always include comments field (empty string if no value to avoid API delay)
+      comments: formValues.comments ? formValues.comments.trim() : ''
     };
 
     try {
