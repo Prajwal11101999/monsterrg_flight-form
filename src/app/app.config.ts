@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, APP_INITIALIZER } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
@@ -8,7 +8,12 @@ import { browserSessionPersistence, setPersistence } from 'firebase/auth';
 
 import { routes } from './app.routes';
 import { environment } from '../environments/environment';
+import { SessionService } from './services/session.service';
 
+/**
+ * Application configuration with providers
+ * Includes SessionService initialization for automatic session timeout
+ */
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -21,6 +26,16 @@ export const appConfig: ApplicationConfig = {
       setPersistence(auth, browserSessionPersistence);
       return auth;
     }),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    // Initialize SessionService to start session timeout monitoring
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (sessionService: SessionService) => () => {
+        // SessionService is injected and initialized here
+        // Its constructor will start monitoring auth state
+      },
+      deps: [SessionService],
+      multi: true
+    }
   ]
 };

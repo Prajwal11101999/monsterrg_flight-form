@@ -4,6 +4,11 @@ import { Auth } from '@angular/fire/auth';
 import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+/**
+ * Route guard that protects routes requiring authentication
+ * Waits for Firebase auth state to be fully restored before checking
+ * Redirects to login if user is not authenticated
+ */
 export const authGuard: CanActivateFn = () => {
   const auth = inject(Auth);
   const router = inject(Router);

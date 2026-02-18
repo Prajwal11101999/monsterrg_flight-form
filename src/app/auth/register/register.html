@@ -131,6 +131,9 @@
             @if (registerForm.get('confirmPassword')?.errors?.['required']) {
               Please confirm your password
             }
+            @if (registerForm.get('confirmPassword')?.errors?.['passwordMismatch']) {
+              Passwords do not match
+            }
           </div>
         }
       </div>
