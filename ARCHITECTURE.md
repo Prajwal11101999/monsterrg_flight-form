@@ -240,14 +240,11 @@ Validators → Test validation rules
 ## Deployment Architecture
 
 ```
-Development → GitHub → CI/CD Pipeline → Production
-     ↓                      ↓               ↓
-  ng serve           Lint/Test/Build    Firebase Hosting
-                           ↓
-                    Automated Checks
-                     - Unit Tests
-                     - Linting
-                     - Build
+Development → Build → Deploy → Production
+     ↓           ↓        ↓         ↓
+  ng serve   ng build  Firebase  Firebase Hosting
+                       Deploy
+```
                      - Security Audit
 ```
 
