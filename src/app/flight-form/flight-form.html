@@ -1,0 +1,172 @@
+<div class="page-container">
+  <div class="form-card">
+
+    <!-- Header (always visible) -->
+    <div class="page-header">
+      <div>
+        <h2>Flight Information</h2>
+        @if (!submitted()) {
+          <p class="subtitle">Enter arrival details below</p>
+        }
+      </div>
+      <button class="logout-btn" type="button" (click)="logout()">
+        Logout
+      </button>
+    </div>
+
+    <!-- 🚨 MODAL POPUP (shown when user already submitted in the past) -->
+    @if (showModal()) {
+      <div class="modal-backdrop" (click)="closeModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+          <div class="modal-icon">⚠️</div>
+          <h3>Already Submitted</h3>
+          <p>Flight information has already been submitted.<br>You cannot submit again.</p>
+          <button class="modal-btn" (click)="closeModal()">Close</button>
+        </div>
+      </div>
+    }
+
+    <!-- ✅ SUCCESS SCREEN — replaces form after successful submission -->
+    @if (submitted()) {
+      <div class="success-screen">
+        <div class="success-icon">✓</div>
+        <h3>Submission Successful!</h3>
+        <p>Your flight information has been submitted successfully.<br>No further submissions are allowed for this session.</p>
+      </div>
+    }
+
+    <!-- FORM — hidden once submitted -->
+    @if (!submitted()) {
+
+      <!-- Error Message -->
+      @if (errorMessage()) {
+        <div class="error-alert">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <form [formGroup]="flightForm" (ngSubmit)="onSubmit()">
+
+        <!-- Row 1: Airline + Flight Number -->
+        <div class="form-row">
+
+          <!-- Airline -->
+          <div class="form-group">
+            <label for="airline">Airline</label>
+            <input
+              id="airline"
+              type="text"
+              formControlName="airline"
+              placeholder="e.g. Emirates, IndiGo"
+              [class.invalid]="flightForm.get('airline')?.invalid && flightForm.get('airline')?.touched"
+            />
+            @if (flightForm.get('airline')?.invalid && flightForm.get('airline')?.touched) {
+              <span class="error-message">Airline is required</span>
+            }
+          </div>
+
+          <!-- Flight Number -->
+          <div class="form-group">
+            <label for="flightNumber">Flight Number</label>
+            <input
+              id="flightNumber"
+              type="text"
+              formControlName="flightNumber"
+              placeholder="e.g. EK-202, 6E-341"
+              [class.invalid]="flightForm.get('flightNumber')?.invalid && flightForm.get('flightNumber')?.touched"
+            />
+            @if (flightForm.get('flightNumber')?.invalid && flightForm.get('flightNumber')?.touched) {
+              <span class="error-message">Flight number is required</span>
+            }
+          </div>
+
+        </div>
+
+        <!-- Row 2: Arrival Date + Arrival Time -->
+        <div class="form-row">
+
+          <!-- Arrival Date -->
+          <div class="form-group">
+            <label for="arrivalDate">Arrival Date</label>
+            <input
+              id="arrivalDate"
+              type="date"
+              formControlName="arrivalDate"
+              [class.invalid]="flightForm.get('arrivalDate')?.invalid && flightForm.get('arrivalDate')?.touched"
+            />
+            @if (flightForm.get('arrivalDate')?.invalid && flightForm.get('arrivalDate')?.touched) {
+              <span class="error-message">Arrival date is required</span>
+            }
+          </div>
+
+          <!-- Arrival Time -->
+          <div class="form-group">
+            <label for="arrivalTime">Arrival Time</label>
+            <input
+              id="arrivalTime"
+              type="time"
+              formControlName="arrivalTime"
+              [class.invalid]="flightForm.get('arrivalTime')?.invalid && flightForm.get('arrivalTime')?.touched"
+            />
+            @if (flightForm.get('arrivalTime')?.invalid && flightForm.get('arrivalTime')?.touched) {
+              <span class="error-message">Arrival time is required</span>
+            }
+          </div>
+
+        </div>
+
+        <!-- Number of Guests -->
+        <div class="form-group">
+          <label for="numOfGuests">Number of Guests</label>
+          <input
+            id="numOfGuests"
+            type="number"
+            formControlName="numOfGuests"
+            placeholder="Enter number of guests"
+            min="1"
+            [class.invalid]="flightForm.get('numOfGuests')?.invalid && flightForm.get('numOfGuests')?.touched"
+          />
+          @if (flightForm.get('numOfGuests')?.invalid && flightForm.get('numOfGuests')?.touched) {
+            <span class="error-message">
+              @if (flightForm.get('numOfGuests')?.errors?.['required']) {
+                Number of guests is required
+              }
+              @if (flightForm.get('numOfGuests')?.errors?.['min']) {
+                Must be at least 1 guest
+              }
+            </span>
+          }
+        </div>
+
+        <!-- Comments (optional) -->
+        <div class="form-group">
+          <label for="comments">
+            Comments
+            <span class="optional">(optional)</span>
+          </label>
+          <textarea
+            id="comments"
+            formControlName="comments"
+            placeholder="Any special requests or additional information..."
+            rows="4"
+          ></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="submit-btn"
+          [disabled]="loading() || flightForm.invalid"
+        >
+          @if (loading()) {
+            <span class="spinner"></span>
+            Submitting...
+          } @else {
+            Submit Flight Info
+          }
+        </button>
+
+      </form>
+    }
+  </div>
+</div>
