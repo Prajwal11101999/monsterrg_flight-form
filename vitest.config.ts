@@ -31,7 +31,8 @@ export default defineConfig({
     /** Code coverage configuration using V8 provider */
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html', 'lcov'],
+      reporter: ['text', 'json-summary', 'json', 'html', 'lcov'],
+      reportsDirectory: './coverage',
       exclude: [
         'node_modules/',
         'src/test-setup.ts',

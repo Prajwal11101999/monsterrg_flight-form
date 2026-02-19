@@ -18,7 +18,8 @@ describe('LoginComponent', () => {
   const mockRouter = { 
     navigate: vi.fn(),
     events: EMPTY,
-    createUrlTree: vi.fn()
+    createUrlTree: vi.fn(() => ({ toString: () => '/mock-url' })),
+    serializeUrl: vi.fn((tree) => tree.toString())
   };
   const mockActivatedRoute = {};
 

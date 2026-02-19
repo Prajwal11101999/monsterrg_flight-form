@@ -295,15 +295,6 @@ Contributions are welcome! Please follow these guidelines:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-### Code Review Checklist
-
-- [ ] All tests passing
-- [ ] Code follows Angular style guide
-- [ ] JSDoc comments added
-- [ ] No console.log statements
-- [ ] TypeScript strict mode compliant
-- [ ] OnPush change detection used
-
 ## 📄 License
 
 This project is licensed under the MIT License.
