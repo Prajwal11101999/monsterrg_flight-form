@@ -49,6 +49,29 @@
         }
       </div>
 
+      <!-- Country Code -->
+      <div class="form-group">
+        <label for="countryCode">Country Code</label>
+        <select 
+          id="countryCode"
+          formControlName="countryCode"
+          [class.invalid]="registerForm.get('countryCode')?.invalid && registerForm.get('countryCode')?.touched"
+        >
+          @for (country of countryCodes; track country.isoCode) {
+            <option [value]="country.dialCode">
+              {{ country.flag }} {{ country.name }} ({{ country.dialCode }})
+            </option>
+          }
+        </select>
+        @if (registerForm.get('countryCode')?.invalid && registerForm.get('countryCode')?.touched) {
+          <div class="error-message">
+            @if (registerForm.get('countryCode')?.errors?.['required']) {
+              Country code is required
+            }
+          </div>
+        }
+      </div>
+
       <!-- Mobile Number -->
       <div class="form-group">
         <label for="mobile">Mobile Number</label>

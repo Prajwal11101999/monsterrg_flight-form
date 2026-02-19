@@ -9,6 +9,7 @@ import { LoggerService } from './logger.service';
 export interface UserProfile {
   firstName: string;
   lastName: string;
+  countryCode: string;
   mobile: string | null;
   email: string;
   createdAt: Date;
@@ -76,6 +77,7 @@ export class UserService {
     const profile: UserProfile = {
       firstName,
       lastName,
+      countryCode: '+1',
       mobile: null,
       email: user.email || '',
       createdAt: new Date()
