@@ -123,7 +123,7 @@
           id="password"
           type="password" 
           formControlName="password"
-          placeholder="Enter password (min 6 characters)"
+          placeholder="Enter strong password (min 8 characters)"
           [class.invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
         />
         @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
@@ -132,7 +132,22 @@
               Password is required
             }
             @if (registerForm.get('password')?.errors?.['minlength']) {
-              Password must be at least 6 characters long
+              Password must be at least 8 characters long
+            }
+            @if (registerForm.get('password')?.errors?.['noUpperCase']) {
+              Password must contain at least one uppercase letter
+            }
+            @if (registerForm.get('password')?.errors?.['noLowerCase']) {
+              Password must contain at least one lowercase letter
+            }
+            @if (registerForm.get('password')?.errors?.['noNumber']) {
+              Password must contain at least one number
+            }
+            @if (registerForm.get('password')?.errors?.['noSpecialChar']) {
+              Password must contain at least one special character (!@#$%^&*...)
+            }
+            @if (registerForm.get('password')?.errors?.['hasSpaces']) {
+              Password cannot contain spaces
             }
           </div>
         }

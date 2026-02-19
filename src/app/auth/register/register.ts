@@ -44,7 +44,15 @@ export class RegisterComponent {
     countryCode: ['+1', Validators.required],
     mobile: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    password: ['', [
+      Validators.required, 
+      Validators.minLength(8),
+      CustomValidators.hasUpperCase(),
+      CustomValidators.hasLowerCase(),
+      CustomValidators.hasNumber(),
+      CustomValidators.hasSpecialCharacter(),
+      CustomValidators.noSpaces()
+    ]],
     confirmPassword: ['', Validators.required]
   }, { validators: CustomValidators.passwordsMatch() });
 

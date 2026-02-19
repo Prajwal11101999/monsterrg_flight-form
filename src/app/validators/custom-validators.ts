@@ -34,4 +34,79 @@ export class CustomValidators {
       }
     };
   }
+
+  /**
+   * Validates that password contains at least one uppercase letter
+   * @returns Validator function
+   */
+  static hasUpperCase(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (!value) {
+        return null;
+      }
+      const hasUpperCase = /[A-Z]/.test(value);
+      return hasUpperCase ? null : { noUpperCase: true };
+    };
+  }
+
+  /**
+   * Validates that password contains at least one lowercase letter
+   * @returns Validator function
+   */
+  static hasLowerCase(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (!value) {
+        return null;
+      }
+      const hasLowerCase = /[a-z]/.test(value);
+      return hasLowerCase ? null : { noLowerCase: true };
+    };
+  }
+
+  /**
+   * Validates that password contains at least one number
+   * @returns Validator function
+   */
+  static hasNumber(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (!value) {
+        return null;
+      }
+      const hasNumber = /[0-9]/.test(value);
+      return hasNumber ? null : { noNumber: true };
+    };
+  }
+
+  /**
+   * Validates that password contains at least one special character
+   * @returns Validator function
+   */
+  static hasSpecialCharacter(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (!value) {
+        return null;
+      }
+      const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value);
+      return hasSpecialChar ? null : { noSpecialChar: true };
+    };
+  }
+
+  /**
+   * Validates that password does not contain spaces
+   * @returns Validator function
+   */
+  static noSpaces(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (!value) {
+        return null;
+      }
+      const hasSpaces = /\s/.test(value);
+      return hasSpaces ? { hasSpaces: true } : null;
+    };
+  }
 }
