@@ -1,6 +1,6 @@
 # Flight Info App - Final Project Assessment
 
-## 🎯 Overall Score: **97/100** ✅
+## 🎯 Overall Score: **91/100** ✅
 
 Your project now meets and exceeds the standards of a Senior Angular Developer with 2+ years of experience.
 
@@ -8,13 +8,12 @@ Your project now meets and exceeds the standards of a Senior Angular Developer w
 
 ## 📊 Score Breakdown
 
-### 1. Code Quality (25/25) ✅
+### 1. Code Quality (23/25) ✅
 - ✅ **OnPush Change Detection**: All components use `ChangeDetectionStrategy.OnPush`
 - ✅ **Strict TypeScript**: `strict: true`, no `any` types, proper type guards
 - ✅ **Modern Angular**: Standalone components, signals, inject()
 - ✅ **No Deprecated Code**: Replaced `toPromise()` with `firstValueFrom()`
-- ✅ **ESLint Configured**: Strict rules, no warnings, auto-fix enabled
-- ✅ **Prettier Setup**: Consistent code formatting with pre-commit hooks
+- ✅ **Prettier Setup**: Consistent code formatting
 
 ### 2. Architecture & Design Patterns (24/25) ✅
 - ✅ **Service Layer Separation**: Business logic extracted from components
@@ -49,11 +48,10 @@ Your project now meets and exceeds the standards of a Senior Angular Developer w
 - ✅ **No Compilation Errors**: All tests use correct Vitest syntax
 - ⚠️ **Coverage Target**: Aim for 80%+ coverage (currently tests cover core services)
 
-### 4. Developer Experience (22/25) ✅
+### 4. Developer Experience (20/25) ✅
 - ✅ **Professional README**: Architecture diagrams, setup guide, badges
 - ✅ **CONTRIBUTING.md**: Clear contribution guidelines
 - ✅ **ARCHITECTURE.md**: System design documentation
-- ✅ **Git Hooks (Husky)**: Pre-commit linting and formatting
 - ✅ **PR Template**: Comprehensive pull request checklist
 - ✅ **Issue Templates**: Bug report and feature request templates
 - ✅ **Scripts**: Well-organized npm scripts for all workflows
@@ -65,17 +63,10 @@ Your project now meets and exceeds the standards of a Senior Angular Developer w
 ### Code Quality Tools
 ```json
 {
-  "lint": "eslint \"src/**/*.ts\" \"src/**/*.html\"",
-  "lint:fix": "eslint \"src/**/*.ts\" \"src/**/*.html\" --fix",
   "format": "prettier --write \"src/**/*.{ts,html,scss,css,json}\"",
   "format:check": "prettier --check \"src/**/*.{ts,html,scss,css,json}\""
 }
 ```
-
-### Pre-commit Hooks (Husky + lint-staged)
-- ✅ Auto-formats code on commit
-- ✅ Runs ESLint on staged files
-- ✅ Prevents commits with errors
 
 ### Documentation Suite
 - ✅ **README.md**: 200+ lines with architecture diagrams
@@ -169,14 +160,13 @@ readonly registerForm = new FormGroup({
 ### Prerequisites
 ```bash
 npm install
-npm run prepare  # Sets up Husky hooks
 ```
 
 ### Development
 ```bash
 npm start                 # Start dev server
-npm run lint              # Check code quality
-npm run lint:fix          # Auto-fix issues
+npm run format            # Format code with Prettier
+npm run format:check      # Check code formatting
 npm run test              # Run tests
 npm run test:coverage     # Run tests with coverage
 ```
@@ -202,11 +192,10 @@ npm run format            # Auto-format code
 3. **Error Handling**: Graceful error messages, user-friendly feedback
 4. **Testing**: Unit tests with good coverage strategy
 5. **Documentation**: Comprehensive guides for contributors
-6. **Automation**: Pre-commit hooks, automated quality checks
-7. **Modern Patterns**: Latest Angular features (signals, inject, standalone)
-8. **Code Consistency**: ESLint + Prettier ensure uniform style
-9. **Git Workflow**: PR templates, issue templates, structured commits
-10. **Production Ready**: Environment configs, build optimizations
+6. **Modern Patterns**: Latest Angular features (signals, inject, standalone)
+7. **Code Consistency**: Prettier ensures uniform style
+8. **Git Workflow**: PR templates, issue templates, structured commits
+9. **Production Ready**: Environment configs, build optimizations
 
 ### What Sets This Apart
 - **Not just functional** - professionally structured
@@ -246,7 +235,7 @@ Your project demonstrates:
 
 **This is the quality expected from a Senior Angular Developer with 2+ years of experience.**
 
-Score: **94/100** 🏆
+Score: **91/100** 🏆
 
 ---
 

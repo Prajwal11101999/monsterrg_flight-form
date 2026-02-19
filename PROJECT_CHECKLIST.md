@@ -146,15 +146,11 @@
 **Note:** * = Core service tests exist; component tests are next priority
 
 ### Code Quality Tools
-- [x] ESLint configuration
 - [x] Prettier configuration
 - [x] TypeScript strict mode
 - [x] No console.log statements (LoggerService used)
 - [x] Consistent code formatting
-- [x] Lint scripts (`npm run lint`, `npm run lint:fix`)
 - [x] Format scripts (`npm run format`, `npm run format:check`)
-- [x] Husky pre-commit hooks
-- [x] lint-staged for pre-commit validation
 
 ---
 
@@ -207,8 +203,6 @@
 - [x] Meaningful commit messages
 - [x] Branch strategy (main/feature branches)
 - [x] PR template for code reviews
-- [x] Pre-commit hooks (Husky)
-- [x] Auto-format on commit (lint-staged)
 
 ### Deployment
 - [x] Firebase Hosting configured
@@ -331,7 +325,6 @@
 - [x] Implemented OnPush change detection
 - [x] Added service layer separation
 - [x] Created comprehensive documentation
-- [x] Added pre-commit hooks
 - [x] Implemented session timeout
 - [x] Added centralized error handling
 - [x] Created environment-aware logging
@@ -362,7 +355,7 @@
 | **UI/UX** | 19/19 | 19 | 100% ✅ |
 | **Testing** | 10/19 | 19 | 53% ⚠️ |
 | **Documentation** | 28/28 | 28 | 100% ✅ |
-| **DevOps & Deployment** | 10/10 | 10 | 100% ✅ |
+| **DevOps & Deployment** | 5/5 | 5 | 100% ✅ |
 | **Security** | 20/20 | 20 | 100% ✅ |
 | **Performance** | 12/12 | 12 | 100% ✅ |
 | **Senior Dev Requirements** | 23/23 | 23 | 100% ✅ |

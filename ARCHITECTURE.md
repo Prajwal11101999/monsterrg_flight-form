@@ -259,7 +259,6 @@ Development → Build → Deploy → Production
 | Auth | Firebase Auth | 20.0 |
 | Database | Cloud Firestore | 20.0 |
 | Testing | Vitest | 4.0 |
-| Linting | ESLint | 9.18 |
 | Formatting | Prettier | 3.4 |
 
 ## Design Patterns

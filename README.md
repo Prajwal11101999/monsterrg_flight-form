@@ -94,7 +94,6 @@
 ### Development Tools
 - **Vitest** - Fast unit testing with Vite
 - **Angular CLI 21.1** - Scaffolding and build tools
-- **ESLint** - Code quality and consistency
 - **Prettier** - Code formatting
 
 ## 🚀 Getting Started
@@ -223,7 +222,6 @@ npm start          # Start dev server (http://localhost:4200)
 npm run build      # Build for production
 npm test           # Run unit tests
 npm run watch      # Build in watch mode
-npm run lint       # Run ESLint (when configured)
 ```
 
 ## 🧪 Testing
