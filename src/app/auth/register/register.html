@@ -127,29 +127,29 @@
           [class.invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
         />
         @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
-          <div class="error-message">
+          <ul class="error-list">
             @if (registerForm.get('password')?.errors?.['required']) {
-              Password is required
+              <li>Password is required</li>
             }
             @if (registerForm.get('password')?.errors?.['minlength']) {
-              Password must be at least 8 characters long
+              <li>Password must be at least 8 characters long</li>
             }
             @if (registerForm.get('password')?.errors?.['noUpperCase']) {
-              Password must contain at least one uppercase letter
+              <li>Password must contain at least one uppercase letter</li>
             }
             @if (registerForm.get('password')?.errors?.['noLowerCase']) {
-              Password must contain at least one lowercase letter
+              <li>Password must contain at least one lowercase letter</li>
             }
             @if (registerForm.get('password')?.errors?.['noNumber']) {
-              Password must contain at least one number
+              <li>Password must contain at least one number</li>
             }
             @if (registerForm.get('password')?.errors?.['noSpecialChar']) {
-              Password must contain at least one special character (!@#$%^&*...)
+              <li>Password must contain at least one special character (!@#$%^&*...)</li>
             }
             @if (registerForm.get('password')?.errors?.['hasSpaces']) {
-              Password cannot contain spaces
+              <li>Password cannot contain spaces</li>
             }
-          </div>
+          </ul>
         }
       </div>
 
