@@ -6,6 +6,8 @@ import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { ErrorMappingService } from '../../services/error-mapping.service';
 import { LoggerService } from '../../services/logger.service';
+import { SanitizationService } from '../../services/sanitization.service';
+import { CustomValidators } from '../../validators/custom-validators';
 
 /**
  * Login component with email/password and Google authentication
@@ -27,15 +29,24 @@ export class LoginComponent {
   private userService = inject(UserService);
   private errorMapping = inject(ErrorMappingService);
   private logger = inject(LoggerService);
+  private sanitization = inject(SanitizationService);
 
   // Signals for reactive state management
   loading = signal(false);
   errorMessage = signal('');
 
-  // Typed reactive form
+  // Typed reactive form with same password validation as registration
   loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    password: ['', [
+      Validators.required,
+      Validators.minLength(8),
+      CustomValidators.hasUpperCase(),
+      CustomValidators.hasLowerCase(),
+      CustomValidators.hasNumber(),
+      CustomValidators.hasSpecialCharacter(),
+      CustomValidators.noSpaces()
+    ]]
   });
 
   /**
@@ -47,11 +58,20 @@ export class LoginComponent {
 
     const { email, password } = this.loginForm.getRawValue();
 
+    // Sanitize email input
+    const sanitizedEmail = this.sanitization.sanitizeEmail(email);
+
+    // Check for XSS attempts
+    if (this.sanitization.containsXSS(email)) {
+      this.errorMessage.set('Invalid email format detected.');
+      return;
+    }
+
     this.loading.set(true);
     this.errorMessage.set('');
 
     try {
-      await this.authService.login(email.trim(), password);
+      await this.authService.login(sanitizedEmail, password);
       await this.router.navigate(['/flight-form']);
     } catch (error: unknown) {
       this.handleAuthError(error);

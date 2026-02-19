@@ -7,6 +7,7 @@ import { FlightInfoPayload } from '../models/flight-info.model';
 import { AuthService } from '../services/auth.service';
 import { FlightService } from '../services/flight.service';
 import { LoggerService } from '../services/logger.service';
+import { SanitizationService } from '../services/sanitization.service';
 
 /**
  * Flight information form component with submission tracking
@@ -29,6 +30,7 @@ export class FlightFormComponent implements OnInit {
   private auth = inject(Auth);
   private flightService = inject(FlightService);
   private logger = inject(LoggerService);
+  private sanitization = inject(SanitizationService);
 
   // Signals for reactive state management
   loading = signal(false);
@@ -91,20 +93,33 @@ export class FlightFormComponent implements OnInit {
     
     if (this.loading() || this.flightForm.invalid) return;
 
+    // Get form values and sanitize inputs
+    const formValues = this.flightForm.getRawValue();
+    
+    const sanitizedAirline = this.sanitization.sanitizeAlphanumeric(formValues.airline);
+    const sanitizedFlightNumber = this.sanitization.sanitizeAlphanumeric(formValues.flightNumber);
+    const sanitizedComments = formValues.comments ? 
+      this.sanitization.sanitizeMultilineText(formValues.comments) : '';
+
+    // Check for XSS attempts
+    if (this.sanitization.containsXSS(formValues.airline) || 
+        this.sanitization.containsXSS(formValues.flightNumber) ||
+        this.sanitization.containsXSS(formValues.comments || '')) {
+      this.errorMessage.set('Invalid input detected. Please remove special characters.');
+      return;
+    }
+
     this.loading.set(true);
     this.successMessage.set('');
     this.errorMessage.set('');
 
-    // Get form values and clean the payload
-    const formValues = this.flightForm.getRawValue();
     const payload: FlightInfoPayload = {
-      airline: formValues.airline,
+      airline: sanitizedAirline,
       arrivalDate: formValues.arrivalDate,
       arrivalTime: formValues.arrivalTime,
-      flightNumber: formValues.flightNumber,
+      flightNumber: sanitizedFlightNumber,
       numOfGuests: formValues.numOfGuests,
-      // Always include comments field (empty string if no value to avoid API delay)
-      comments: formValues.comments ? formValues.comments.trim() : ''
+      comments: sanitizedComments
     };
 
     try {

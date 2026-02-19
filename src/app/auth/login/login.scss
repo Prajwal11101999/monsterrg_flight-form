@@ -3,6 +3,20 @@
 // Login-specific styles (if any)
 // Currently using all common styles from auth-common.scss
 
+// Password validation error list (bullet points)
+.error-list {
+  color: #f44336;
+  font-size: 12px;
+  margin: 6px 0 0 0;
+  padding-left: 20px;
+  list-style-type: disc;
+
+  li {
+    margin: 3px 0;
+    line-height: 1.4;
+  }
+}
+
 .google-btn {
   .spinner {
     width: 16px;

@@ -70,8 +70,8 @@
             id="mobile"
             type="tel" 
             formControlName="mobile"
-            placeholder="Enter 10-digit mobile number"
-            maxlength="10"
+            [placeholder]="'Enter mobile number (' + selectedCountry().minLength + (selectedCountry().minLength === selectedCountry().maxLength ? '' : '-' + selectedCountry().maxLength) + ' digits)'"
+            [maxlength]="selectedCountry().maxLength"
             class="mobile-input"
           />
         </div>
@@ -80,8 +80,8 @@
             @if (registerForm.get('mobile')?.errors?.['required']) {
               Mobile number is required
             }
-            @if (registerForm.get('mobile')?.errors?.['pattern']) {
-              Mobile number must be exactly 10 digits
+            @if (registerForm.get('mobile')?.errors?.['mobileLength']) {
+              {{ registerForm.get('mobile')?.errors?.['mobileLength']?.['message'] }}
             }
           </div>
         }
