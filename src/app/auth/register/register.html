@@ -49,40 +49,32 @@
         }
       </div>
 
-      <!-- Country Code -->
-      <div class="form-group">
-        <label for="countryCode">Country Code</label>
-        <select 
-          id="countryCode"
-          formControlName="countryCode"
-          [class.invalid]="registerForm.get('countryCode')?.invalid && registerForm.get('countryCode')?.touched"
-        >
-          @for (country of countryCodes; track country.isoCode) {
-            <option [value]="country.dialCode">
-              {{ country.flag }} {{ country.name }} ({{ country.dialCode }})
-            </option>
-          }
-        </select>
-        @if (registerForm.get('countryCode')?.invalid && registerForm.get('countryCode')?.touched) {
-          <div class="error-message">
-            @if (registerForm.get('countryCode')?.errors?.['required']) {
-              Country code is required
-            }
-          </div>
-        }
-      </div>
-
-      <!-- Mobile Number -->
+      <!-- Mobile Number with Country Code -->
       <div class="form-group">
         <label for="mobile">Mobile Number</label>
-        <input 
-          id="mobile"
-          type="tel" 
-          formControlName="mobile"
-          placeholder="Enter 10-digit mobile number"
-          maxlength="10"
-          [class.invalid]="registerForm.get('mobile')?.invalid && registerForm.get('mobile')?.touched"
-        />
+        <div class="mobile-input-group" 
+             [class.invalid]="(registerForm.get('mobile')?.invalid && registerForm.get('mobile')?.touched) || 
+                              (registerForm.get('countryCode')?.invalid && registerForm.get('countryCode')?.touched)">
+          <select 
+            id="countryCode"
+            formControlName="countryCode"
+            class="country-code-select"
+          >
+            @for (country of countryCodes; track country.isoCode) {
+              <option [value]="country.dialCode">
+                {{ country.flag }} {{ country.dialCode }}
+              </option>
+            }
+          </select>
+          <input 
+            id="mobile"
+            type="tel" 
+            formControlName="mobile"
+            placeholder="Enter 10-digit mobile number"
+            maxlength="10"
+            class="mobile-input"
+          />
+        </div>
         @if (registerForm.get('mobile')?.invalid && registerForm.get('mobile')?.touched) {
           <div class="error-message">
             @if (registerForm.get('mobile')?.errors?.['required']) {
@@ -90,6 +82,13 @@
             }
             @if (registerForm.get('mobile')?.errors?.['pattern']) {
               Mobile number must be exactly 10 digits
+            }
+          </div>
+        }
+        @if (registerForm.get('countryCode')?.invalid && registerForm.get('countryCode')?.touched) {
+          <div class="error-message">
+            @if (registerForm.get('countryCode')?.errors?.['required']) {
+              Country code is required
             }
           </div>
         }
